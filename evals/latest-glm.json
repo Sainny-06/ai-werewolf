@@ -1,0 +1,59 @@
+{
+  "agg": {
+    "games": 5,
+    "mode": "glm",
+    "goodWinRate": 0.2,
+    "avgDays": 2.4,
+    "goodVoteCorrectRate": 0.49480519480519475,
+    "exileAccuracy": 0.4,
+    "wolfAvgSurvival": 1.9,
+    "fallbackRate": 0
+  },
+  "results": [
+    {
+      "id": "g_mtznc5ey_zhbd",
+      "winner": "wolf",
+      "days": 3,
+      "goodVoteCorrectRate": 0.5714285714285714,
+      "exileAccuracy": 0.5,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzndrco_38az",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.25,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzneut4_n1ns",
+      "winner": "good",
+      "days": 2,
+      "goodVoteCorrectRate": 0.8571428571428571,
+      "exileAccuracy": 1,
+      "wolfAvgSurvival": 1.5,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzngrse_x6jv",
+      "winner": "wolf",
+      "days": 3,
+      "goodVoteCorrectRate": 0.5454545454545454,
+      "exileAccuracy": 0.5,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtznisdr_k1yj",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.25,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    }
+  ]
+}
