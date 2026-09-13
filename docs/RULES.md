@@ -85,22 +85,23 @@ setup → night → dawn → speech → vote ─┬→ (唯一最高票) exile �
 
 ## 9. 回放记录格式
 
-每局一个 JSON 对象（落库），`events` 按发生顺序记录全部节拍：
+每局一个 JSON 对象（落库，`Game.stateJson`），`events` 按发生顺序记录全部节拍：
 
 ```ts
 type GameEvent =
-  | { type: 'game_start'; players: { id: number; name: string; persona: string }[]; day: 0 }
+  | { type: 'game_start'; players: { id: number; name: string; persona: string }[] }
   | { type: 'night_start'; day: number }
-  | { type: 'wolf_kill'; day: number; actor: number[]; target: number; suggestion?: string }
-  | { type: 'seer_check'; day: number; actor: number; target: number; result: 'wolf' | 'good' } // 回放中仅当预言家为人类时展示
-  | { type: 'dawn'; day: number; deaths: number[]; lastWords?: { player: number; content: string } }
+  | { type: 'wolf_kill'; day: number; actors: number[]; target: number; suggestion?: string }
+  | { type: 'seer_check'; day: number; actor: number; target: number; result: 'wolf' | 'good' }
+  | { type: 'dawn'; day: number; deaths: number[] }
+  | { type: 'last_words'; day: number; player: number; content: string }
   | { type: 'speech'; day: number; player: number; content: string }
-  | { type: 'vote_result'; day: number; votes: { voter: number; target: number | null; reason?: string; fallback?: boolean }[]; exiled?: number }
-  | { type: 'exile'; day: number; player: number; lastWords?: string }
+  | { type: 'vote_result'; day: number; votes: { voter: number; target: number | null; reason?: string; fallback?: boolean }[]; exiled: number | null; isPk: boolean }
+  | { type: 'exile'; day: number; player: number }
   | { type: 'game_over'; winner: 'wolf' | 'good'; players: { id: number; role: string; alive: boolean }[] }
 ```
 
-> 回放页与实时对局共用同一事件流渲染；`seer_check` 的 result 在回放中默认隐藏，结算时揭示。
+> 回放页与实时对局共用同一事件流渲染；`wolf_kill` / `seer_check` 为夜间私有事件，对局结束前不对客户端下发，终局揭示。`last_words` 为独立事件（遗言内容生成晚于天亮公告）。
 
 ## 10. 术语表（代码命名以此为准）
 

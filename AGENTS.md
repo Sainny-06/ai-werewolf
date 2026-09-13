@@ -11,23 +11,25 @@
 ## 技术栈（不要更换）
 
 - Next.js 15（App Router）+ TypeScript（strict 模式）
-- Tailwind CSS + shadcn/ui
+- Tailwind CSS，UI 组件手写（游戏界面定制化程度高，不引组件库）
 - Prisma + SQLite（本地开发）/ Neon Postgres（Vercel 部署）
-- LLM：智谱 GLM（glm-4-flash 免费），OpenAI 兼容接口，所有调用统一走 `src/lib/llm/` 封装
-- 测试：Vitest，规则引擎必须有单元测试
+- LLM：智谱 GLM（glm-4-flash 免费），OpenAI 兼容接口，所有调用统一走 `src/lib/llm/` 封装；未配置 Key 时自动降级 Mock 玩家
+- 测试：Vitest，规则引擎必须有单元测试；HTTP 链路用 `npm run smoke` 冒烟
 
 ## 目录结构
 
 ```
 src/
-  app/          # 页面与 API 路由（App Router）
-  components/   # UI 组件
+  app/            # 页面与 API 路由（App Router）
+  components/     # 游戏视图组件（对局页与回放页共用）
   lib/
-    game/       # 规则引擎：状态机、生死判定、胜负判定（纯函数，禁止 import LLM 相关代码）
-    agents/     # AI 玩家：人设、上下文构建、决策 prompt
-    llm/        # LLM 调用封装：callLLM()、模型路由、Token 埋点、重试
-  tests/        # 单元测试
-docs/           # PRD.md、RULES.md
+    game/         # 规则引擎（纯函数）、运行时 beat 驱动器、公开状态投影 publicState
+    agents/       # AI 玩家：人设、上下文构建（信息隔离）、prompt、Mock 玩家
+    llm/          # LLM 调用封装：callLLM()、模型路由、Token 埋点、重试
+  tests/          # 单元测试
+scripts/          # eval.ts（评测）、smoke.ts（HTTP 冒烟）
+docs/             # PRD.md、RULES.md
+evals/            # 评测报表
 ```
 
 ## 核心架构规则（不许违反）
