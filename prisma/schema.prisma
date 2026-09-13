@@ -1,0 +1,36 @@
+// 开发用 SQLite；部署到 Vercel 时把 provider 换成 postgres 并改用 DATABASE_URL（见 README 部署一节）
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Game {
+  id        String   @id
+  seed      Int
+  stateJson String // 完整 GameState 快照（含事件流）
+  winner    String? // wolf / good，终局后写入
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Token 用量埋点：每次 LLM 调用一条记录，成本看板的数据源
+model LLMCall {
+  id               String   @id @default(cuid())
+  gameId           String?
+  feature          String // speech / vote / wolf_kill / seer_check / last_words
+  model            String
+  provider         String // glm / mock
+  promptTokens     Int
+  completionTokens Int
+  totalTokens      Int
+  latencyMs        Int
+  fallback         Boolean @default(false) // 输出校验失败走了兜底
+  createdAt        DateTime @default(now())
+
+  @@index([gameId])
+  @@index([createdAt])
+}
