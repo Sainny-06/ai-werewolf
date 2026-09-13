@@ -5,13 +5,15 @@
 
 <!-- 在线 Demo：（部署后填入链接）｜回放示例：（跑一轮 npm run eval 后录制） -->
 
+仓库：https://github.com/Sainny-06/ai-werewolf ｜ 技术栈：Next.js 15 · TypeScript · Prisma · 智谱 GLM · Vitest
+
 ## 它是什么
 
 - **完整可玩**：2 狼人 + 1 预言家 + 4 村民的标准局；你随机拿到一个身份（狼人/预言家/村民三种体验），和 6 个 AI 从黑夜打到终局
 - **6 个 AI 玩家各有性格**：暴躁老兵铁柱、谨慎大学生小鹿、带节奏主播薇薇、逻辑流程序员老K、热心大妈翠花、话少阴沉的乌鸦——发言风格由 prompt 人设约束
 - **信息严格隔离**：狼人只看得到队友、预言家只看得到自己的查验记录——每个 AI 的上下文由独立的视角构建器生成，互不串台
 - **真实的 AI 工程细节**：结构化输出校验 + 失败重试 + 规则引擎兜底（游戏永不卡死）、SSE 流式发言、Token 用量埋点、模型路由
-- **AI 行为可评测**：`npm run eval` 自动跑 N 局纯 AI 对局，统计好人投票正确率、放逐准确率、狼存活天数等指标（[evals/report.md](evals/report.md)）
+- **AI 行为可评测**：`npm run eval` 自动跑 N 局纯 AI 对局，统计好人投票正确率、放逐准确率、狼存活天数等指标（Mock 基线见 [evals/report-mock.md](evals/report-mock.md)，真实模型见 [evals/report-glm.md](evals/report-glm.md)）
 - **对局可回放**：每局自动落库，回放页逐条还原，夜间私有信息终局才揭示（不翻牌规则）
 
 ## 技术架构
@@ -68,9 +70,12 @@ npm run eval -- 10   # 跑 10 局纯 AI 对局，产出 evals/report.md
 
 ## AI 行为评测
 
-当前仓库附带 **Mock 朴素基线** 的评测结果（[evals/report.md](evals/report.md)）：8 局对局，好人胜率 12.5%、好人投票正确率 49.1%、放逐准确率 12.5%、输出兜底率 0%。
+仓库附带两组对照数据：
 
-配置 `ZHIPU_API_KEY` 后运行 `npm run eval -- 20` 即可得到真实模型的对照数据——"接入 LLM 后好人推理质量提升 X%" 这条对比就是这个项目的评测叙事。
+- **Mock 朴素基线**（[evals/report-mock.md](evals/report-mock.md)）：8 局，好人胜率 12.5%、好人投票正确率 49.1%、放逐准确率 12.5%、输出兜底率 0%
+- **真实 GLM 模型**（[evals/report-glm.md](evals/report-glm.md)）：同规则同评测口径的对照数据
+
+"接入 LLM 后，好人推理质量相对朴素基线提升 X%"——这条量化对比就是这个项目评测叙事的核心。
 
 ## 我是如何用 AI 开发的（vibe coding 工作流）
 

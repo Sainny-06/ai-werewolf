@@ -180,12 +180,12 @@ export async function runBeat(
         } else {
           const exiled = !state.deathsTonight.includes(pid);
           try {
-            const content = await driver.lastWords(
+            const raw = await driver.lastWords(
               buildView(state, pid),
               { exiled },
               (t) => onDelta?.(pid, t)
             );
-            engine.recordLastWords(state, pid, content);
+            engine.recordLastWords(state, pid, (raw || "……").trim().slice(0, 120));
           } catch (err) {
             if (!(err instanceof AgentFallback)) throw err;
             engine.recordLastWords(state, pid, "……（信号不好，他没能说完。）");
@@ -217,7 +217,7 @@ export async function runBeat(
           if (!(err instanceof AgentFallback)) throw err;
           content = `${pid}号沉默了一会儿，只说了句：「过。」`;
         }
-        engine.recordSpeech(state, pid, content.slice(0, 120));
+        engine.recordSpeech(state, pid, (content || "过。").trim().slice(0, 120));
       }
       break;
     }

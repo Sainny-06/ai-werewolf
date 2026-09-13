@@ -9,8 +9,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "db:push": "prisma db push",
-    "eval": "tsx scripts/eval.ts",
-    "smoke": "tsx scripts/smoke.ts"
+    "eval": "tsx --env-file-if-exists=.env.local scripts/eval.ts",
+    "smoke": "tsx --env-file-if-exists=.env.local scripts/smoke.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",

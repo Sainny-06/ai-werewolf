@@ -133,8 +133,9 @@ ${results
 `;
 
   mkdirSync("evals", { recursive: true });
-  writeFileSync("evals/report.md", report, "utf8");
-  writeFileSync("evals/latest.json", JSON.stringify({ agg, results }, null, 2), "utf8");
+  const modeTag = hasRealLLM() ? "glm" : "mock";
+  writeFileSync(`evals/report-${modeTag}.md`, report, "utf8");
+  writeFileSync(`evals/latest-${modeTag}.json`, JSON.stringify({ agg, results }, null, 2), "utf8");
   console.log("\n汇总：");
   console.log(
     JSON.stringify(
@@ -143,7 +144,7 @@ ${results
       2
     )
   );
-  console.log("报告已写入 evals/report.md");
+  console.log(`报告已写入 evals/report-${modeTag}.md`);
 
   await db.$disconnect();
 }
