@@ -1,0 +1,86 @@
+{
+  "agg": {
+    "games": 8,
+    "mode": "mock",
+    "goodWinRate": 0.125,
+    "avgDays": 2.125,
+    "goodVoteCorrectRate": 0.49107142857142855,
+    "exileAccuracy": 0.125,
+    "wolfAvgSurvival": 2,
+    "fallbackRate": 0
+  },
+  "results": [
+    {
+      "id": "g_mtziconc_pqwz",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.5,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzicoxd_l357",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.5,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzicp3w_5mhg",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.625,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzicpgr_ytqu",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.5,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzicpo4_tdnv",
+      "winner": "good",
+      "days": 3,
+      "goodVoteCorrectRate": 0.75,
+      "exileAccuracy": 1,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzicq77_md6i",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.375,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzicqk5_bb0f",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.42857142857142855,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    },
+    {
+      "id": "g_mtzicr2d_munl",
+      "winner": "wolf",
+      "days": 2,
+      "goodVoteCorrectRate": 0.25,
+      "exileAccuracy": 0,
+      "wolfAvgSurvival": 2,
+      "fallbackRate": 0
+    }
+  ]
+}

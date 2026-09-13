@@ -118,7 +118,7 @@ export async function runBeat(
   const driver = getDriver();
   let awaiting: HumanActionRequest | null = null;
 
-  const human = state.players.find((p) => p.isHuman)!;
+  const human = state.players.find((p) => p.isHuman) ?? null;
   const aliveWolves = state.players.filter((p) => p.role === "wolf" && p.alive);
   const aliveIds = state.players.filter((p) => p.alive).map((p) => p.id);
 
@@ -129,8 +129,7 @@ export async function runBeat(
     }
 
     case "night_wolf": {
-      const humanWolf = human.isHuman && human.role === "wolf" && human.alive;
-      if (humanWolf) {
+      if (human && human.role === "wolf" && human.alive) {
         // 人类是狼：先让 AI 队友给一条建议（每夜一次），再等人选刀口
         if (state.wolfSuggestion === null && aliveWolves.some((w) => !w.isHuman)) {
           const aiWolf = aliveWolves.find((w) => !w.isHuman)!;
@@ -238,13 +237,13 @@ export async function runBeat(
         await persist(state);
       }
       if (isHumanAlive(state)) {
-        const humanVoted = state.votes.some((v) => v.voter === human.id);
+        const humanVoted = state.votes.some((v) => v.voter === human!.id);
         if (!humanVoted) {
           awaiting = {
             kind: isPk ? "pk_vote" : "vote",
-            player: human.id,
+            player: human!.id,
             day: state.day,
-            candidates: isPk ? candidates : candidates.filter((c) => c !== human.id),
+            candidates: isPk ? candidates : candidates.filter((c) => c !== human!.id),
           };
           break;
         }

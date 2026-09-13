@@ -27,18 +27,19 @@ export interface CreateGameOptions {
 }
 
 export function createGame(opts: CreateGameOptions): GameState {
-  if (opts.aiPlayers.length !== PLAYER_COUNT - (opts.humanName ? 1 : 0)) {
-    throw new GameError("AI 玩家数量必须为 6（有人类）或 7（纯 AI 局）");
+  const required = PLAYER_COUNT - (opts.humanName ? 1 : 0);
+  if (opts.aiPlayers.length < required) {
+    throw new GameError(`AI 玩家数量不足：需要 ${required} 名`);
   }
   const seed = opts.seed ?? Math.floor(Math.random() * 2 ** 31);
   const rand = mulberry32(seed);
   const roles = shuffle([...ROLE_DECK], rand);
+  const aiQueue = opts.aiPlayers.slice(0, required);
 
   const humanSeat = opts.humanName
     ? opts.humanId ?? Math.floor(rand() * PLAYER_COUNT) + 1
     : 0;
 
-  const aiQueue = [...opts.aiPlayers];
   const players: Player[] = [];
   for (let id = 1; id <= PLAYER_COUNT; id++) {
     if (opts.humanName && id === humanSeat) {
