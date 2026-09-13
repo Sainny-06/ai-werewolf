@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { PublicState } from "@/lib/game/publicState";
-import { EventLog, PlayerStrip, WinnerBanner, isNight } from "@/components/gameView";
+import { EventLog, PlayerList, WinnerBanner, isNight } from "@/components/gameView";
 
 /**
  * 回放页：逐事件还原对局。身份在"game_over"事件出现前保持隐藏（不翻牌规则），
@@ -79,7 +79,7 @@ export default function ReplayPage({ params }: { params: Promise<{ id: string }>
         <span className="text-xs text-slate-500">{state.id}</span>
       </div>
 
-      <PlayerStrip state={displayState} meId={null} />
+      <PlayerList state={displayState} meId={null} streamingPlayer={null} />
 
       <div className="mt-4 rounded-2xl border border-slate-800 bg-slate-950/60 p-3 sm:p-4 min-h-[320px] max-h-[50vh] overflow-y-auto">
         <EventLog events={revealedEvents} names={names} />

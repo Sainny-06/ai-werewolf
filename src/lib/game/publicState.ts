@@ -20,6 +20,10 @@ export interface PublicState {
   gameOver: boolean;
   players: PublicPlayer[];
   events: GameEvent[];
+  /** 发言阶段当前该谁发言（座位号，公开信息） */
+  speechTurn: number | null;
+  /** 发言阶段之后待发言的座位顺序（公开信息） */
+  speechQueue: number[];
   me: {
     id: number;
     role: string;
@@ -33,6 +37,7 @@ export interface PublicState {
 export function toPublicState(state: GameState): PublicState {
   const human = state.players.find((p) => p.isHuman) ?? null;
   const gameOver = state.phase === "game_over";
+  const inSpeech = state.phase === "speech" || state.phase === "pk_speech";
   return {
     id: state.id,
     day: state.day,
@@ -51,6 +56,8 @@ export function toPublicState(state: GameState): PublicState {
       if (e.type === "wolf_kill" || e.type === "seer_check") return gameOver;
       return true;
     }),
+    speechTurn: inSpeech ? state.speechOrder[state.speechIndex] ?? null : null,
+    speechQueue: inSpeech ? state.speechOrder.slice(state.speechIndex + 1) : [],
     me:
       human && !gameOver
         ? {

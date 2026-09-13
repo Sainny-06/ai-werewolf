@@ -1,4 +1,4 @@
-// AI 玩家统一驱动器：有 Key 走真实 GLM（JSON 校验 + 重试），没 Key 降级 Mock。
+﻿// AI 玩家统一驱动器：有 Key 走真实 GLM（JSON 校验 + 重试），没 Key 降级 Mock。
 // 兜底原则：驱动器只负责重试，重试耗尽抛 AgentFallback，由运行时用规则引擎侧的兜底方案接住，游戏永不卡死。
 
 import { callLLM, hasRealLLM } from "@/lib/llm/callLLM";
@@ -58,7 +58,7 @@ async function decideJson<T>(
         { role: "user", content: m.user },
       ],
       temperature: 0.6,
-      maxTokens: 200,
+      maxTokens: 140,
     });
     try {
       return validate(parseJsonLoose(res.text));
@@ -80,7 +80,7 @@ const realDriver: AgentDriver = {
         { role: "user", content: m.user },
       ],
       temperature: 0.9,
-      maxTokens: 200,
+      maxTokens: 140,
       onDelta,
     });
     return cleanText(res.text);
@@ -96,7 +96,7 @@ const realDriver: AgentDriver = {
         { role: "user", content: m.user },
       ],
       temperature: 0.9,
-      maxTokens: 200,
+      maxTokens: 140,
       onDelta,
     });
     return cleanText(res.text);
