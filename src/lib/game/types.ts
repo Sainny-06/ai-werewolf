@@ -106,21 +106,9 @@ export interface HumanActionRequest {
 export interface BeatResult {
   /** 本次推进新增的事件 */
   events: GameEvent[];
-  /** 需要执行的一次 LLM 任务；无任务时为 null */
-  task: LLMTask | null;
   /** 等待人类输入时给出 */
   awaiting: HumanActionRequest | null;
   /** 游戏是否结束 */
   done: boolean;
   phase: Phase;
 }
-
-/** 运行时交给 agents 层执行的 LLM 任务 */
-export type LLMTask =
-  | { kind: "wolf_kill"; wolves: number[]; allowHumanSuggestion?: boolean }
-  | { kind: "seer_check"; seer: number }
-  | { kind: "speech"; player: number }
-  | { kind: "pk_speech"; player: number; candidates: number[] }
-  | { kind: "vote"; player: number; candidates: number[] }
-  | { kind: "pk_vote"; player: number; candidates: number[] }
-  | { kind: "last_words"; player: number };
